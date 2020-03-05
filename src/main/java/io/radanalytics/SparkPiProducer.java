@@ -57,8 +57,8 @@ public class SparkPiProducer implements Serializable {
         options.put("dbtable",
                     "(select transaction_type, concat_ws(' ', customer_first_name, customer_last_name) as full_name from payment_event) as payment_event");
         //options.put("partitionColumn", "emp_no");
-        options.put("lowerBound", "100");
-        options.put("upperBound", "499");
+        //options.put("lowerBound", "100");
+        //options.put("upperBound", "499");
         //options.put("numPartitions", "10");
 
         SQLContext sqlContext = new SQLContext(jsc);
@@ -73,7 +73,12 @@ public class SparkPiProducer implements Serializable {
             LOGGER.info(transactionRow);
         }
 
+
         String ret = "Pi is rouuuughly " + 4.0 * count / n;
+
+        if(transactionRows != null){
+            ret = transactionRows.count();
+        }
 
         return ret;
     }
