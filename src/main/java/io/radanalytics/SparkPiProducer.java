@@ -49,7 +49,7 @@ public class SparkPiProducer implements Serializable {
             return (x * x + y * y < 1) ? 1 : 0;
         }).reduce((integer, integer2) -> integer + integer2);
 
-
+/*
         //Data source options
         Map<String, String> options = new HashMap<>();
         options.put("driver", MYSQL_DRIVER);
@@ -71,7 +71,7 @@ public class SparkPiProducer implements Serializable {
         for (Row transactionRow : transactionRows) {
             LOGGER.info(transactionRow);
         }
-
+*/
         String ret = "Pi is rouuuughly " + 4.0 * count / n;
 
         return ret;
