@@ -1,5 +1,14 @@
 package io.radanalytics;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.sql.DataFrame;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SQLContext;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
