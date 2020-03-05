@@ -11,10 +11,10 @@ import org.apache.spark.api.java.JavaSparkContext;
 public class SparkPiProducer implements Serializable {
 
     private static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String MYSQL_USERNAME = "expertuser";
-    private static final String MYSQL_PWD = "expertuser123";
+    private static final String MYSQL_USERNAME = "root";
+    private static final String MYSQL_PWD = "E7MlnA47t8jrBskm";
     private static final String MYSQL_CONNECTION_URL =
-            "jdbc:mysql://mysql:3306/employees?user=" + MYSQL_USERNAME + "&password=" + MYSQL_PWD;
+            "jdbc:mysql://mysql:3306/payment?useSSL=false&allowPublicKeyRetrieval=true&user=" + MYSQL_USERNAME + "&password=" + MYSQL_PWD;
 
 
     public String GetPi(int scale) {
