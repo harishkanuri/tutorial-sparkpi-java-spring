@@ -49,7 +49,7 @@ public class SparkPiProducer implements Serializable {
             return (x * x + y * y < 1) ? 1 : 0;
         }).reduce((integer, integer2) -> integer + integer2);
 
-/*
+
         //Data source options
         Map<String, String> options = new HashMap<>();
         options.put("driver", MYSQL_DRIVER);
@@ -64,14 +64,15 @@ public class SparkPiProducer implements Serializable {
         SQLContext sqlContext = new SQLContext(jsc);
 
         //Load MySQL query result as DataFrame
-        DataFrame jdbcDF = sqlContext.load("jdbc", options);
+        //DataFrame jdbcDF = sqlContext.load("jdbc", options);
+        Dataset<Row> jdbcRows = sqlContext.read().format("jdbc").options(options).load()
 
-        List<Row> transactionRows = jdbcDF.collectAsList();
+        List<Row> transactionRows = jdbcRows.collectAsList();
 
         for (Row transactionRow : transactionRows) {
             LOGGER.info(transactionRow);
         }
-*/
+
         String ret = "Pi is rouuuughly " + 4.0 * count / n;
 
         return ret;
