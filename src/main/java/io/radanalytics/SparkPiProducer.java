@@ -27,6 +27,10 @@ public class SparkPiProducer implements Serializable {
     private static final String MYSQL_CONNECTION_URL =
             "jdbc:mysql://mysql:3306/payment?useSSL=false&allowPublicKeyRetrieval=true&user=" + MYSQL_USERNAME + "&password=" + MYSQL_PWD;
 
+    // private static final JavaSparkContext sc =
+    //         new JavaSparkContext(new SparkConf().setAppName("SparkJdbcDs").setMaster("local[*]"));
+
+    // private static final SQLContext sqlContext = new SQLContext(sc);
 
     public String GetPi(int scale) {
         JavaSparkContext jsc = SparkContextProvider.getContext();
@@ -56,6 +60,8 @@ public class SparkPiProducer implements Serializable {
         options.put("lowerBound", "100");
         options.put("upperBound", "499");
         //options.put("numPartitions", "10");
+
+        SQLContext sqlContext = new SQLContext(jsc);
 
         //Load MySQL query result as DataFrame
         DataFrame jdbcDF = sqlContext.load("jdbc", options);
