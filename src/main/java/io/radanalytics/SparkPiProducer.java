@@ -41,24 +41,24 @@ public class SparkPiProducer implements Serializable {
             l.add(i);
         }
 
-        // JavaRDD<Integer> dataSet = jsc.parallelize(l, scale);
+        JavaRDD<Integer> dataSet = jsc.parallelize(l, scale);
 
-        // int count = dataSet.map(integer -> {
-        //     double x = Math.random() * 2 - 1;
-        //     double y = Math.random() * 2 - 1;
-        //     return (x * x + y * y < 1) ? 1 : 0;
-        // }).reduce((integer, integer2) -> integer + integer2);
+        int count = dataSet.map(integer -> {
+            double x = Math.random() * 2 - 1;
+            double y = Math.random() * 2 - 1;
+            return (x * x + y * y < 1) ? 1 : 0;
+        }).reduce((integer, integer2) -> integer + integer2);
 
 
-        // //Data source options
-        // Map<String, String> options = new HashMap<>();
-        // options.put("driver", MYSQL_DRIVER);
-        // options.put("url", MYSQL_CONNECTION_URL);
-        // options.put("dbtable",
-        //             "(select transaction_type, concat_ws(' ', customer_first_name, customer_last_name) as full_name from payment_event) as payment_event");
-        // //options.put("partitionColumn", "emp_no");
-        // options.put("lowerBound", "100");
-        // options.put("upperBound", "499");
+        //Data source options
+        Map<String, String> options = new HashMap<>();
+        options.put("driver", MYSQL_DRIVER);
+        options.put("url", MYSQL_CONNECTION_URL);
+        options.put("dbtable",
+                    "(select transaction_type, concat_ws(' ', customer_first_name, customer_last_name) as full_name from payment_event) as payment_event");
+        //options.put("partitionColumn", "emp_no");
+        options.put("lowerBound", "100");
+        options.put("upperBound", "499");
         //options.put("numPartitions", "10");
 
         SQLContext sqlContext = new SQLContext(jsc);
