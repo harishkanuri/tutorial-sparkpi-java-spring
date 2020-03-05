@@ -10,6 +10,8 @@ import org.apache.spark.api.java.JavaSparkContext;
 
 public class SparkPiProducer implements Serializable {
 
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(SparkPiProducer.class);
+
     private static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
     private static final String MYSQL_USERNAME = "root";
     private static final String MYSQL_PWD = "E7MlnA47t8jrBskm";
