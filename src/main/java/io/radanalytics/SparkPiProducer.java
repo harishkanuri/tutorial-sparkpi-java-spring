@@ -35,7 +35,7 @@ public class SparkPiProducer implements Serializable {
     public String GetPi(int scale) {
         JavaSparkContext jsc = SparkContextProvider.getContext();
 
-        int n = 100000 * scale;
+/*        int n = 100000 * scale;
         List<Integer> l = new ArrayList<Integer>(n);
         for (int i = 0; i < n; i++) {
             l.add(i);
@@ -49,7 +49,7 @@ public class SparkPiProducer implements Serializable {
             return (x * x + y * y < 1) ? 1 : 0;
         }).reduce((integer, integer2) -> integer + integer2);
 
-
+*/
         //Data source options
         Map<String, String> options = new HashMap<>();
         options.put("driver", MYSQL_DRIVER);
