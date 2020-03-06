@@ -76,10 +76,10 @@ public class SparkPiProducer implements Serializable {
         }
 
 
-        String ret = "Pi is rouuuughly " + 4.0 * count / n;
+        String ret = "Pi is rouuuughly " + 4.0;
 
         if(transactionRows != null){
-            ret = transactionRows.count();
+            ret = "Size: " + transactionRows.size();
         }
 
         return ret;
