@@ -1,22 +1,15 @@
 package io.radanalytics;
 
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.sql.DataFrame;
+import org.apache.spark.sql.Dataset;
 //import org.apache.spark.sql.DataSet;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SQLContext;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.spark.api.java.function.Function;
-import org.apache.spark.api.java.function.Function2;
-import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.JavaSparkContext;
 
 public class SparkPiProducer implements Serializable {
 
@@ -65,11 +58,11 @@ public class SparkPiProducer implements Serializable {
         SQLContext sqlContext = new SQLContext(jsc);
 
         //Load MySQL query result as DataFrame
-        DataFrame jdbcDF = sqlContext.load("jdbc", options);
-        //Dataset<Row> jdbcRows = sqlContext.read().format("jdbc").options(options).load();
+        //DataFrame jdbcDF = sqlContext.load("jdbc", options);
+        Dataset<Row> jdbcRows = sqlContext.read().format("jdbc").options(options).load();
 
-        List<Row> transactionRows = jdbcDF.collectAsList();
-        //List<Row> transactionRows = jdbcRows.collectAsList();
+        //List<Row> transactionRows = jdbcDF.collectAsList();
+        List<Row> transactionRows = jdbcRows.collectAsList();
 
         for (Row transactionRow : transactionRows) {
             LOGGER.info(transactionRow);
