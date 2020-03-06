@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.DataFrame;
+//import org.apache.spark.sql.DataSet;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SQLContext;
 
@@ -64,10 +65,11 @@ public class SparkPiProducer implements Serializable {
         SQLContext sqlContext = new SQLContext(jsc);
 
         //Load MySQL query result as DataFrame
-        //DataFrame jdbcDF = sqlContext.load("jdbc", options);
-        Dataset<Row> jdbcRows = sqlContext.read().format("jdbc").options(options).load()
+        DataFrame jdbcDF = sqlContext.load("jdbc", options);
+        //Dataset<Row> jdbcRows = sqlContext.read().format("jdbc").options(options).load();
 
-        List<Row> transactionRows = jdbcRows.collectAsList();
+        List<Row> transactionRows = jdbcDF.collectAsList();
+        //List<Row> transactionRows = jdbcRows.collectAsList();
 
         for (Row transactionRow : transactionRows) {
             LOGGER.info(transactionRow);
