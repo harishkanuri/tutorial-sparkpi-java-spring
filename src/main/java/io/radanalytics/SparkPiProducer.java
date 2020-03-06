@@ -70,12 +70,19 @@ public class SparkPiProducer implements Serializable {
         //Load MySQL query result as DataFrame
         //DataFrame jdbcDF = sqlContext.load("jdbc", options);
         //Dataset<Row> jdbcRows = sparkSession.read().format("jdbc").options(options).load();
-
-        final String dbTable =
-                "(select transaction_type, concat_ws(' ', customer_first_name, customer_last_name) as full_name from payment_event) as payment_event";
-        Dataset<Row> jdbcDF = 
-                sparkSession.read().jdbc(MYSQL_CONNECTION_URL, dbTable, connectionProperties);
+        Dataset<Row> jdbcDF = null;
         
+        try {
+			Class.forName("com.mysql.jdbc.Driver");
+			final String dbTable =
+	                "(select transaction_type, concat_ws(' ', customer_first_name, customer_last_name) as full_name from payment_event) as payment_event";
+	       jdbcDF = sparkSession.read().jdbc(MYSQL_CONNECTION_URL, dbTable, connectionProperties);
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+                
         List<Row> transactionRows = jdbcDF.collectAsList();
         //List<Row> transactionRows = jdbcRows.collectAsList();
 
