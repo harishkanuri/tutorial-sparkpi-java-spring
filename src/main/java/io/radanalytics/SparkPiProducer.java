@@ -10,6 +10,7 @@ import org.apache.spark.sql.Dataset;
 //import org.apache.spark.sql.DataSet;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SQLContext;
+import org.apache.spark.sql.SparkSession;
 
 public class SparkPiProducer implements Serializable {
 
@@ -55,11 +56,15 @@ public class SparkPiProducer implements Serializable {
         //options.put("upperBound", "499");
         //options.put("numPartitions", "10");
 
-        SQLContext sqlContext = new SQLContext(jsc);
+        SparkSession sparkSession =
+                SparkSession.builder().master("local[*]").appName("Spark2JdbcDs").getOrCreate();
+        
+       
+        //SQLContext sqlContext = new SQLContext(jsc);
 
         //Load MySQL query result as DataFrame
         //DataFrame jdbcDF = sqlContext.load("jdbc", options);
-        Dataset<Row> jdbcRows = sqlContext.read().format("jdbc").options(options).load();
+        Dataset<Row> jdbcRows = sparkSession.read().format("jdbc").options(options).load();
 
         //List<Row> transactionRows = jdbcDF.collectAsList();
         List<Row> transactionRows = jdbcRows.collectAsList();
